@@ -10,7 +10,7 @@ image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: "0.100.5"
-  tag: "0.0.1"
+  tag: "0.0.3"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -53,12 +53,21 @@ service:
   port: 80
 
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
+#  enabled: false
+  enabled: true
+  className: "nginx-bina"
+#  annotations: {}
+  annotations:
+    external-dns.alpha.kubernetes.io/target: nginx-ingress-bina.k8s.bina.peer39dom.com
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  hosts: promptfoo
+#  hosts: promptfoo
+  hosts:
+    - host: promptfoo.k8s.bina.peer39dom.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
