@@ -5,10 +5,12 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/promptfoo/promptfoo
+  #repository: ghcr.io/promptfoo/promptfoo
+  repository: artifact01.nj.peer39.com:5000/webo/p39-promptfoo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.100.5"
+  #tag: "0.100.5"
+  tag: "0.0.1"
 
 imagePullSecrets: []
 nameOverride: ""
