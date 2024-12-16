@@ -56,12 +56,14 @@ spec:
                 name: {{ $fullName }}
                 port:
 #                  number: {{ $svcPort }}
-                  number: {{ $webPort }}
+#                  number: {{ $webPort }}
+                  number: {{ $apiPort }}
 
               {{- else }}
               serviceName: {{ $fullName }}
 #              servicePort: {{ $svcPort }}
-              servicePort: {{ $webPort }}
+#              servicePort: {{ $webPort }}
+              servicePort: {{ $apiPort }}
               {{- end }}
           {{- end }}
     {{- end }}
