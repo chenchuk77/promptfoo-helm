@@ -48,6 +48,9 @@ redisPort: ""
 redisPassword: ""
 redisDb: ""
 
+openrouterApiKey : "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"
+
+
 service:
   type: ClusterIP
 #  port: 80

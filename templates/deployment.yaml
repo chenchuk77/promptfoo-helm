@@ -63,7 +63,12 @@ spec:
               value: "{{ .Values.redisPassword}}"
             - name: PROMPTFOO_SHARE_REDIS_DB
               value: "{{ .Values.redisDb}}"
-              
+            - name: OPENROUTER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: propmtfoo-api-key
+                  key: api-key
+
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
