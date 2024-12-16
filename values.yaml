@@ -101,15 +101,29 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
+volumeMounts:
+  - name: promptfoo-storage
+    mountPath: /home/promptfoo/.promptfoo
+
+volumes:
+  - name: promptfoo-storage
+    persistentVolumeClaim:
+      claimName: promptfoo-pvc
+
 # Additional volumes on the output Deployment definition.
-volumes: []
+#volumes: []
 # - name: foo
 #   secret:
 #     secretName: mysecret
 #     optional: false
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
+#volumeMounts: []
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
