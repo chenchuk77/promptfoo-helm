@@ -41,30 +41,51 @@ spec:
     {{- end }}
   {{- end }}
   rules:
+#    {{- range .Values.ingress.hosts }}
+#    - host: {{ .host | quote }}
+#      http:
+#        paths:
+#          {{- range .paths }}
+#          - path: {{ .path }}
+#            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+#            pathType: {{ .pathType }}
+#            {{- end }}
+#            backend:
+#              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+#              service:
+#                name: {{ $fullName }}
+#                port:
+#                  number: {{ $apiPort }}
+#              {{- else }}
+#              serviceName: {{ $fullName }}
+#              servicePort: {{ $apiPort }}
+#              {{- end }}
+#          {{- end }}
+#    {{- end }}
     {{- range .Values.ingress.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
+          - path: /
             {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
             pathType: {{ .pathType }}
             {{- end }}
             backend:
-              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
                 name: {{ $fullName }}
                 port:
-#                  number: {{ $svcPort }}
-#                  number: {{ $webPort }}
                   number: {{ $apiPort }}
-
-              {{- else }}
-              serviceName: {{ $fullName }}
-#              servicePort: {{ $svcPort }}
-#              servicePort: {{ $webPort }}
-              servicePort: {{ $apiPort }}
-              {{- end }}
-          {{- end }}
+          - path: /ui
+            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+            pathType: {{ .pathType }}
+            {{- end }}
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $webPort }}
     {{- end }}
+
+
+
 {{- end }}
