@@ -45,21 +45,39 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
-            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
-            pathType: {{ .pathType }}
-            {{- end }}
+
+
+          - path: /
+            pathType: ImplementationSpecific
             backend:
-              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
                 name: {{ $fullName }}
                 port:
                   number: {{ $apiPort }}
-              {{- else }}
-              serviceName: {{ $fullName }}
-              servicePort: {{ $apiPort }}
-              {{- end }}
-          {{- end }}
+          - path: /ui
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $webPort }}
+
+
+#          {{- range .paths }}
+#          - path: {{ .path }}
+#            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+#            pathType: {{ .pathType }}
+#            {{- end }}
+#            backend:
+#              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+#              service:
+#                name: {{ $fullName }}
+#                port:
+#                  number: {{ $apiPort }}
+#              {{- else }}
+#              serviceName: {{ $fullName }}
+#              servicePort: {{ $apiPort }}
+#              {{- end }}
+#          {{- end }}
     {{- end }}
 {{- end }}
