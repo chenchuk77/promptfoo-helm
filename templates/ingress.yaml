@@ -40,13 +40,11 @@ spec:
       secretName: {{ .secretName }}
     {{- end }}
   {{- end }}
+
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: promptfoo.k8s.bina.peer39dom.com
       http:
         paths:
-
-
           - path: /
             pathType: ImplementationSpecific
             backend:
@@ -54,13 +52,37 @@ spec:
                 name: {{ $fullName }}
                 port:
                   number: {{ $apiPort }}
-          - path: /ui
+    - host: promptfoo-ui.k8s.bina.peer39dom.com
+      http:
+        paths:
+          - path: /
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   number: {{ $webPort }}
+
+
+#  rules:
+#    {{- range .Values.ingress.hosts }}
+#    - host: {{ .host | quote }}
+#      http:
+#        paths:
+#          - path: /
+#            pathType: ImplementationSpecific
+#            backend:
+#              service:
+#                name: {{ $fullName }}
+#                port:
+#                  number: {{ $apiPort }}
+#          - path: /ui
+#            pathType: ImplementationSpecific
+#            backend:
+#              service:
+#                name: {{ $fullName }}
+#                port:
+#                  number: {{ $webPort }}
 
 
 #          {{- range .paths }}
@@ -79,5 +101,5 @@ spec:
 #              servicePort: {{ $apiPort }}
 #              {{- end }}
 #          {{- end }}
-    {{- end }}
+#    {{- end }}
 {{- end }}
