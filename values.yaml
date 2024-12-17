@@ -80,13 +80,18 @@ ingress:
   #      - chart-example.local
 
 resources: 
+#  limits:
+#    cpu: 100m
+#    memory: 128Mi
+#  requests:
+#    cpu: 100m
+#    memory: 128Mi
   limits:
-    cpu: 100m
-    memory: 128Mi
+    cpu: "4"
+    memory: "12Gi"
   requests:
-    cpu: 100m
-    memory: 128Mi
-
+    cpu: "4"
+    memory: "12Gi"
 #livenessProbe:
 #  httpGet:
 #    path: /
@@ -106,7 +111,7 @@ autoscaling:
 persistence:
   enabled: true
   accessMode: ReadWriteOnce
-  size: 10Gi
+  size: 100Gi
 
 volumeMounts:
   - name: promptfoo-storage
