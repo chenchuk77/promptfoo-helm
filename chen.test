@@ -1,14 +1,17 @@
 
-### testing within the namespace
+### testing API inside the namespace
 curl -X POST -H "Content-Type: application/json" \
-  -d '{"google_sheets_url": "https://docs.google.com/spreadsheets/d/1-6sfsayZHwxO_zFAibaKHDw4q1BjC8ZAvEmhiBswrV4/edit?gid=0#gid=0","category_definition": "Crime"}' \
-  http://promptfoo-server:3100/run-evaluation
+  -d '{"google_sheets_url": "https://docs.google.com/spreadsheets/d/1WUZQuqOv-72mKnClTIm_tiXT5GIT53DNz_wAPor5Q3U/edit?gid=845321137#gid=845321137","category_definition": "Crime"}' \
+  http://promptfoo-server:3100/run-evaluation | jq .
 
-### external tests
+### external API tests
 curl -X POST -H "Content-Type: application/json" \
-  -d '{"google_sheets_url": "https://docs.google.com/spreadsheets/d/1-6sfsayZHwxO_zFAibaKHDw4q1BjC8ZAvEmhiBswrV4/edit?gid=0#gid=0","category_definition": "Crime"}' \
-  http://promptfoo.k8s.bina.peer39dom.com/run-evaluation
+  -d '{"google_sheets_url": "https://docs.google.com/spreadsheets/d/1WUZQuqOv-72mKnClTIm_tiXT5GIT53DNz_wAPor5Q3U/edit?gid=845321137#gid=845321137","category_definition": "Crime"}' \
+  http://promptfoo.k8s.bina.peer39dom.com/run-evaluation | jq .
 
-### testing probes
+### testing UI inside the namespace
+http://promptfoo-server:15500/
+
+### external UI testing (and probes)
 curl -I -X GET http://promptfoo-ui.k8s.bina.peer39dom.com/
 
