@@ -105,6 +105,24 @@ resources:
 #    path: /
 #    port: http
 
+livenessProbe:
+  httpGet:
+    path: /
+    port: 15500
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 15500
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 5
+
+
+
 autoscaling:
   enabled: false
   minReplicas: 1

@@ -1,8 +1,14 @@
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"google_sheets_url": "https://docs.google.com/spreadsheets/d/1-6sfsayZHwxO_zFAibaKHDw4q1BjC8ZAvEmhiBswrV4/edit?gid=0#gid=0","category_definition": "sport"}' \
-  http://promptfoo-server:3000/run-evaluation
 
-
+### testing within the namespace
 curl -X POST -H "Content-Type: application/json" \
-  -d '{"google_sheets_url": "https://docs.google.com/spreadsheets/d/1-6sfsayZHwxO_zFAibaKHDw4q1BjC8ZAvEmhiBswrV4/edit?gid=0#gid=0","category_definition": "sport"}' \
+  -d '{"google_sheets_url": "https://docs.google.com/spreadsheets/d/1-6sfsayZHwxO_zFAibaKHDw4q1BjC8ZAvEmhiBswrV4/edit?gid=0#gid=0","category_definition": "Crime"}' \
+  http://promptfoo-server:3100/run-evaluation
+
+### external tests
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"google_sheets_url": "https://docs.google.com/spreadsheets/d/1-6sfsayZHwxO_zFAibaKHDw4q1BjC8ZAvEmhiBswrV4/edit?gid=0#gid=0","category_definition": "Crime"}' \
   http://promptfoo.k8s.bina.peer39dom.com/run-evaluation
+
+### testing probes
+curl -I -X GET http://promptfoo-ui.k8s.bina.peer39dom.com/
+
